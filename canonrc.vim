@@ -141,3 +141,9 @@ colorscheme base16-default-dark
 highlight VertSplit ctermbg=black
 highlight LineNr ctermbg=black
 highlight StatusLineNC ctermbg=black
+
+function ClearWhitespace()
+  %s/\s\+$//e
+endfunction
+
+nnoremap <Leader>w :call ClearWhitespace()<CR>
