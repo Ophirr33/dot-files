@@ -7,7 +7,6 @@ Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'ervandew/supertab'
 Plug 'moll/vim-bbye'
-Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 call plug#end()
 
@@ -136,6 +135,9 @@ nmap <silent> <leader>f <ESC>:call ToggleFindNerd()<CR>
 nmap <silent> <leader>F <ESC>:NERDTreeToggle<CR>
 
 " base16, uncomment when installed
-" let base16colorspace=256  " Access colors present in 256 colorspace
-" colorscheme base16-default-dark
+let base16colorspace=256  " Access colors present in 256 colorspace
+colorscheme base16-default-dark
 
+highlight VertSplit ctermbg=black
+highlight LineNr ctermbg=black
+highlight StatusLineNC ctermbg=black
