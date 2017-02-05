@@ -1,5 +1,6 @@
 " Necessary, apparently
 set nocompatible
+filetype off
 
 " plug
 call plug#begin()
@@ -8,7 +9,11 @@ Plug 'scrooloose/nerdtree'
 Plug 'ervandew/supertab'
 Plug 'moll/vim-bbye'
 Plug 'tpope/vim-commentary'
+Plug 'alessandroyorba/alduin'
+Plug 'maralla/validator.vim'
 call plug#end()
+
+filetype plugin indent on
 
 " Backup files are annoying
 set nobackup
@@ -135,15 +140,19 @@ nmap <silent> <leader>f <ESC>:call ToggleFindNerd()<CR>
 nmap <silent> <leader>F <ESC>:NERDTreeToggle<CR>
 
 " base16, uncomment when installed
-let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-default-dark
+set termguicolors
+colorscheme alduin
 
-highlight VertSplit ctermbg=black
-highlight LineNr ctermbg=black
-highlight StatusLineNC ctermbg=black
+highlight VertSplit guibg=grey guifg=#1c1c1c
+highlight LineNr guibg=#1c1c1c
 
 function ClearWhitespace()
   %s/\s\+$//e
 endfunction
 
 nnoremap <Leader>w :call ClearWhitespace()<CR>
+
+
+" Python
+" au BufNewFile,BufRead *.py  set tabstop=4  set softtabstop=4  set shiftwidth=4  set textwidth=79  set expandtab  set autoindent  set fileformat=unix
+
