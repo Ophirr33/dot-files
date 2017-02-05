@@ -11,6 +11,7 @@ Plug 'moll/vim-bbye'
 Plug 'tpope/vim-commentary'
 Plug 'alessandroyorba/alduin'
 Plug 'maralla/validator.vim'
+Plug 'Chiel92/vim-autoformat'
 call plug#end()
 
 filetype plugin indent on
@@ -151,6 +152,11 @@ function ClearWhitespace()
 endfunction
 
 nnoremap <Leader>w :call ClearWhitespace()<CR>
+
+" Auto format w/ Scala Fmt
+noremap <leader>a :Autoformat<CR>
+let g:formatdef_scalafmt = "'scalafmt --stdin'"
+let g:formatters_scala = ['scalafmt']
 
 
 " Python
