@@ -10,8 +10,10 @@ Plug 'ervandew/supertab'
 Plug 'moll/vim-bbye'
 Plug 'tpope/vim-commentary'
 Plug 'alessandroyorba/alduin'
-Plug 'maralla/validator.vim'
+Plug 'vim-syntastic/syntastic'
 Plug 'Chiel92/vim-autoformat'
+Plug 'wlangstroth/vim-racket'
+Plug 'leafgarland/typescript-vim'
 call plug#end()
 
 filetype plugin indent on
@@ -31,6 +33,7 @@ endif
 if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
+set synmaxcol=9999
 set hidden " Allows you to switch buffers without saving current
 set wildmenu
 set wildmode=longest:full,full " First tab brings up options, second tab cycles
@@ -141,7 +144,6 @@ nmap <silent> <leader>f <ESC>:call ToggleFindNerd()<CR>
 nmap <silent> <leader>F <ESC>:NERDTreeToggle<CR>
 
 " base16, uncomment when installed
-set termguicolors
 colorscheme alduin
 
 highlight VertSplit guibg=grey guifg=#1c1c1c
@@ -151,14 +153,30 @@ function ClearWhitespace()
   %s/\s\+$//e
 endfunction
 
+function Lambda()
+  %s/lambda/λ/ge
+endfunction
+
 nnoremap <Leader>w :call ClearWhitespace()<CR>
+nnoremap <Leader>L :call Lambda()<CR>
 
 " Auto format w/ Scala Fmt
 noremap <leader>a :Autoformat<CR>
 let g:formatdef_scalafmt = "'scalafmt --stdin'"
 let g:formatters_scala = ['scalafmt']
 
+" Syntastic specific checking
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_javascript_checkers=["eslint"]
+let g:syntastic_rust_checkers=["rustc"]
 
 " Python
 " au BufNewFile,BufRead *.py  set tabstop=4  set softtabstop=4  set shiftwidth=4  set textwidth=79  set expandtab  set autoindent  set fileformat=unix
-
