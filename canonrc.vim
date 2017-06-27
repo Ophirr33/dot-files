@@ -12,8 +12,6 @@ Plug 'tpope/vim-commentary'
 Plug 'alessandroyorba/alduin'
 Plug 'vim-syntastic/syntastic'
 Plug 'Chiel92/vim-autoformat'
-Plug 'wlangstroth/vim-racket'
-Plug 'leafgarland/typescript-vim'
 Plug 'tpope/vim-surround'
 call plug#end()
 
@@ -176,7 +174,7 @@ set statusline+=%*
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_javascript_checkers = ["eslint"]
+let g:syntastic_javascript_checkers = ["jshint"]
 let g:syntastic_rust_rustc_exe      = 'cargo check'
 let g:syntastic_rust_rustc_fname    = ''
 let g:syntastic_rust_rustc_args     = '--'
