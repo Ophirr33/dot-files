@@ -48,13 +48,29 @@ noremap <Leader>l <C-W>l
 noremap <Leader>h <C-W>h
 
 " Easier copy and paste
-vmap <Leader>y "+y
-nmap <Leader>y "+y
-vmap <Leader>d "+d
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>p "+p
-map <C-V> "+gP
+" Needs clipboard to be installed
+if has('clipboard')
+  vnoremap <Leader>y "+y
+  nnoremap <Leader>y "+y
+  vnoremap <Leader>d "+d
+  vnoremap <Leader>d "+d
+  nnoremap <Leader>p "+p
+  nnoremap <Leader>p "+p
+  nnoremap <C-V> "+gP
+  vnoremap <C-V> "+gP
+  vnoremap <C-C> "+y
+else
+  vnoremap <Leader>y :echo("Vim not compiled with clipboard support")<CR>
+  nnoremap <Leader>y :echo("Vim not compiled with clipboard support")<CR>
+  vnoremap <Leader>d :echo("Vim not compiled with clipboard support")<CR>
+  vnoremap <Leader>d :echo("Vim not compiled with clipboard support")<CR>
+  nnoremap <Leader>p :echo("Vim not compiled with clipboard support")<CR>
+  nnoremap <Leader>p :echo("Vim not compiled with clipboard support")<CR>
+  nnoremap <C-V> :echo("Vim not compiled with clipboard support")<CR>
+  vnoremap <C-V> :echo("Vim not compiled with clipboard support")<CR>
+  vnoremap <C-C> :echo("Vim not compiled with clipboard support")<CR>
+endif
+
 set pastetoggle=<F11>
 
 " treat wrapped lines as different lines
