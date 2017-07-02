@@ -105,14 +105,14 @@ set lazyredraw
 set expandtab
 set smarttab
 
+" show whitespace
+set list
+
 " Show matching bracket
 set showmatch
 set mat=2
 set shiftwidth=2
 set tabstop=2
-
-" show whitespace
-set list
 
 " But only interesting whitespace
 if &listchars ==# 'eol:$'
@@ -127,9 +127,9 @@ set whichwrap+=<,>,h,l
 augroup last_edit
   autocmd!
   autocmd BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \   exe "normal! g`\"" |
-        \ endif
+       \ if line("'\"") > 0 && line("'\"") <= line("$") |
+       \   exe "normal! g`\"" |
+       \ endif
 augroup END
 
 " previous buffer, next buffer
@@ -163,6 +163,12 @@ colorscheme alduin
 
 highlight VertSplit guibg=grey guifg=#1c1c1c
 highlight LineNr guibg=#1c1c1c
+highlight VertSplit ctermbg=none ctermfg=grey
+highlight LineNr ctermfg=grey ctermbg=none
+highlight StatusLineNC ctermfg=grey ctermbg=none
+highlight StatusLine ctermfg=yellow ctermbg=none
+set laststatus=1
+set statusline=%f\ %h%w%m%r\ %=%(%l,%c%V\ %=\ %P%)
 
 function ClearWhitespace()
   %s/\s\+$//e
@@ -175,18 +181,11 @@ endfunction
 nnoremap <Leader>w :call ClearWhitespace()<CR>
 nnoremap <Leader>L :call Lambda()<CR>
 
-" Auto format w/ Scala Fmt
-noremap <leader>a :Autoformat<CR>
-let g:formatdef_scalafmt = "'scalafmt --stdin'"
-let g:formatters_scala = ['scalafmt']
-
 " Syntastic specific checking
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
