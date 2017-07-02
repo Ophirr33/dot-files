@@ -105,14 +105,14 @@ set lazyredraw
 set expandtab
 set smarttab
 
-" show whitespace
-set list
-
 " Show matching bracket
 set showmatch
 set mat=2
 set shiftwidth=2
 set tabstop=2
+
+" show whitespace
+set list
 
 " But only interesting whitespace
 if &listchars ==# 'eol:$'
@@ -127,9 +127,9 @@ set whichwrap+=<,>,h,l
 augroup last_edit
   autocmd!
   autocmd BufReadPost *
-       \ if line("'\"") > 0 && line("'\"") <= line("$") |
-       \   exe "normal! g`\"" |
-       \ endif
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
 augroup END
 
 " previous buffer, next buffer
