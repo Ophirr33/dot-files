@@ -47,6 +47,11 @@ noremap <Leader>k <C-W>k
 noremap <Leader>l <C-W>l
 noremap <Leader>h <C-W>h
 
+" Tabs and tab movement
+noremap <Leader>th :tabp<CR>
+noremap <Leader>tl :tabn<CR>
+noremap <Leader>tt :tab split<CR>
+
 " Easier copy and paste
 " Needs clipboard to be installed
 if has('clipboard')
@@ -56,9 +61,6 @@ if has('clipboard')
   vnoremap <Leader>d "+d
   nnoremap <Leader>p "+p
   nnoremap <Leader>p "+p
-  nnoremap <C-V> "+gP
-  vnoremap <C-V> "+gP
-  vnoremap <C-C> "+y
 else
   vnoremap <Leader>y :echo("Vim not compiled with clipboard support")<CR>
   nnoremap <Leader>y :echo("Vim not compiled with clipboard support")<CR>
@@ -66,9 +68,6 @@ else
   vnoremap <Leader>d :echo("Vim not compiled with clipboard support")<CR>
   nnoremap <Leader>p :echo("Vim not compiled with clipboard support")<CR>
   nnoremap <Leader>p :echo("Vim not compiled with clipboard support")<CR>
-  nnoremap <C-V> :echo("Vim not compiled with clipboard support")<CR>
-  vnoremap <C-V> :echo("Vim not compiled with clipboard support")<CR>
-  vnoremap <C-C> :echo("Vim not compiled with clipboard support")<CR>
 endif
 
 set pastetoggle=<F11>
