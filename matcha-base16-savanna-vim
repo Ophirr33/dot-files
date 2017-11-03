@@ -16,9 +16,15 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'leafgarland/typescript-vim'
 call plug#end()
 
 filetype plugin indent on
+
+" Spell checking
+set spelllang=en
+set spell
 
 " Backup files are annoying
 set nobackup
@@ -45,29 +51,6 @@ set encoding=utf8
 let mapleader = ","
 set tm=2000
 noremap ,, ,
-noremap <Leader>j <C-W>j
-noremap <Leader>k <C-W>k
-noremap <Leader>l <C-W>l
-noremap <Leader>h <C-W>h
-
-" Easier copy and paste
-" Needs clipboard to be installed
-if has('clipboard')
-  vnoremap <Leader>y "+y
-  nnoremap <Leader>y "+y
-  vnoremap <Leader>d "+d
-  vnoremap <Leader>d "+d
-  nnoremap <Leader>p "+p
-  nnoremap <Leader>p "+p
-else
-  vnoremap <Leader>y :echo("Vim not compiled with clipboard support")<CR>
-  nnoremap <Leader>y :echo("Vim not compiled with clipboard support")<CR>
-  vnoremap <Leader>d :echo("Vim not compiled with clipboard support")<CR>
-  vnoremap <Leader>d :echo("Vim not compiled with clipboard support")<CR>
-  nnoremap <Leader>p :echo("Vim not compiled with clipboard support")<CR>
-  nnoremap <Leader>p :echo("Vim not compiled with clipboard support")<CR>
-endif
-
 set pastetoggle=<F11>
 
 " treat wrapped lines as different lines
@@ -152,6 +135,10 @@ function! ToggleFindNerd()
   endif
 endfunction
 
+function! Json()
+  :%!jq --sort-keys .
+endfunction
+
 " CtrlP using ripgrep
 if executable('rg')
   set grepprg=rg\ --color=never
@@ -163,15 +150,21 @@ endif
 nmap <silent> <leader>f <ESC>:call ToggleFindNerd()<CR>
 nmap <silent> <leader>F <ESC>:NERDTreeToggle<CR>
 
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 " base16, uncomment when installed
 let base16colorspace=256
 set termguicolors
 colorscheme sol
 highlight visual guifg=white guibg=#2eb398
-highlight normal guibg=#f7f7f7
+highlight Normal guibg=#f7f7f7
 highlight StatusLine guifg=#2eb398 guibg=#f7f7f7
-highlight StatusLineNC guifg=#1b2224 guibg=#f7f7f7
-highlight VertSplit guifg=#1b2224 guibg=#f7f7f7
+highlight StatusLineNC guibg=#2eb398 guifg=#f7f7f7
+highlight VertSplit guibg=#2eb398 guifg=#f7f7f7
 highlight Search guibg=#2eb398 guifg=#1b2224
 highlight IncSearch guifg=#2eb398 guibg=#f7f7f7
 highlight Comment guifg=#767f7d
@@ -194,7 +187,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " let g:syntastic_javascript_checkers = ["jshint"]
@@ -205,3 +198,17 @@ let g:syntastic_rust_checkers       = ['rustc']
 
 " Python
 " au BufNewFile,BufRead *.py  set tabstop=4  set softtabstop=4  set shiftwidth=4  set textwidth=79  set expandtab  set autoindent  set fileformat=unix
+noremap <Leader>h <C-W>h
+noremap <Leader>j <C-W>j
+noremap <Leader>k <C-W>k
+noremap <Leader>l <C-W>l
+
+noremap <Leader>H <C-W>H
+noremap <Leader>J <C-W>J
+noremap <Leader>K <C-W>K
+noremap <Leader>L <C-W>L
+
+noremap <Leader>p <C-W>p
+noremap <Leader>T <C-W>T
+noremap <Leader><C-R> <C-W><C-R>
+
