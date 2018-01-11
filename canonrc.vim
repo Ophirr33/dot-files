@@ -13,6 +13,7 @@ Plug 'alessandroyorba/alduin'
 Plug 'vim-syntastic/syntastic'
 Plug 'Chiel92/vim-autoformat'
 Plug 'tpope/vim-surround'
+Plug 'flazz/vim-colorschemes'
 call plug#end()
 
 filetype plugin indent on
