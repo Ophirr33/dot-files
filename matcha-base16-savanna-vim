@@ -24,7 +24,6 @@ filetype plugin indent on
 
 " Spell checking
 set spelllang=en
-set spell
 
 " Backup files are annoying
 set nobackup
@@ -88,6 +87,9 @@ set smarttab
 
 " show whitespace
 set list
+
+" nowrap
+set nowrap
 
 " Show matching bracket
 set showmatch
@@ -187,6 +189,11 @@ let g:ale_rust_cargo_use_check = 1
 " Save battery by only running on saving/entering files
 let g:ale_lint_on_text_changed = 'never'
 
+" Filetypes
+augroup filetypedetect
+    au BufRead,BufNewFile *.hbs setfiletype html
+augroup END
+
 " Pane movement/organization
 noremap <Leader>h <C-W>h
 noremap <Leader>j <C-W>j
@@ -202,3 +209,6 @@ noremap <Leader>p <C-W>p
 noremap <Leader>T <C-W>T
 noremap <Leader><C-R> <C-W><C-R>
 set termkey=,
+
+set cursorcolumn
+set cursorline
