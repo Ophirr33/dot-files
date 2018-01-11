@@ -164,8 +164,8 @@ set termguicolors
 colorscheme sol
 highlight visual guifg=white guibg=#2eb398
 highlight Normal guibg=#f7f7f7
-highlight StatusLine guifg=#2eb398 guibg=#f7f7f7
-highlight StatusLineNC guibg=#2eb398 guifg=#f7f7f7
+highlight StatusLineNC gui=underline cterm=underline guibg=#f7f7f7 guifg=grey
+highlight StatusLine gui=underline cterm=underline guibg=#f7f7f7 guifg=#2eb398
 highlight VertSplit guibg=#2eb398 guifg=#f7f7f7
 highlight Search guibg=#2eb398 guifg=#1b2224
 highlight IncSearch guifg=#2eb398 guibg=#f7f7f7
