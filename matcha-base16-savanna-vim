@@ -176,21 +176,15 @@ nmap ga <Plug>(EasyAlign)
 " base16, uncomment when installed
 let base16colorspace=256
 set termguicolors
-colorscheme sol
-highlight visual guifg=white guibg=#2eb398
-highlight Normal guibg=#f7f7f7
-highlight StatusLineNC gui=underline cterm=underline guibg=#f7f7f7 guifg=grey
-highlight StatusLine gui=underline cterm=underline guibg=#f7f7f7 guifg=#2eb398
-highlight SignColumn guibg=#f7f7f7 guifg=#f7f7f7
-highlight VertSplit guibg=#2eb398 guifg=#f7f7f7
-highlight Search guibg=#2eb398 guifg=#1b2224
-highlight IncSearch guifg=#2eb398 guibg=#f7f7f7
-highlight Comment guifg=#767f7d
-highlight EndOfBuffer guifg=#f7f7f7 guibg=#f7f7f7
-highlight Cursorline gui=underline guibg=#f7f7f7
-highlight TabLine guibg=#f7f7f7 cterm=none
-highlight TabLineFill guifg=#f7f7f7
-highlight TabLineSel guifg=#2eb398 cterm=bold
+colorscheme base16-twilight
+highlight StatusLineNC gui=underline cterm=underline guibg=#1e1e1e
+highlight StatusLine gui=underline cterm=underline guibg=#1e1e1e
+highlight SignColumn guibg=#1e1e1e guifg=#1e1e1e
+highlight VertSplit guibg=#1e1e1e
+highlight Cursorline cterm=underline guibg=#1e1e1e
+highlight TabLine guibg=#1e1e1e cterm=none
+highlight TabLineFill guifg=#a7a7a7
+highlight TabLineSel guibg=#a7a7a7 cterm=bold
 
 set statusline=%f\ %h%w%m%r\ %=%(%l,%c%V\ %=\ %P%)
 
