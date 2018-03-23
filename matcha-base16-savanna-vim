@@ -1,6 +1,13 @@
 set nocompatible
 filetype off
 
+" Filetypes
+augroup filetypedetect
+    au BufRead,BufNewFile *.hbs setfiletype html
+augroup END
+augroup filetypedetect
+    au BufRead,BufNewFile *.sig setfiletype sml
+augroup END
 " plug
 call plug#begin()
 Plug 'chriskempson/base16-vim'
@@ -18,16 +25,19 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'leafgarland/typescript-vim'
 Plug 'w0rp/ale'
+Plug 'StanAngeloff/php.vim'
+Plug 'vim-scripts/jcommenter.vim'
 call plug#end()
 
 filetype plugin indent on
+runtime ftplugin/man.vim
 
 " Spell checking
 set spelllang=en
 
 " Backup files are annoying
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
 
 " history
@@ -64,7 +74,12 @@ set so=7
 
 " Always show current position
 set ruler
-set number
+
+" Playing around with having these off
+" set number
+" set cursorcolumn
+" set cursorline
+
 
 " Remove bell
 set visualbell
@@ -93,7 +108,7 @@ set nowrap
 
 " Show matching bracket
 set showmatch
-set mat=2
+set matchtime=2
 set shiftwidth=2
 set tabstop=2
 
@@ -166,10 +181,16 @@ highlight visual guifg=white guibg=#2eb398
 highlight Normal guibg=#f7f7f7
 highlight StatusLineNC gui=underline cterm=underline guibg=#f7f7f7 guifg=grey
 highlight StatusLine gui=underline cterm=underline guibg=#f7f7f7 guifg=#2eb398
+highlight SignColumn guibg=#f7f7f7 guifg=#f7f7f7
 highlight VertSplit guibg=#2eb398 guifg=#f7f7f7
 highlight Search guibg=#2eb398 guifg=#1b2224
 highlight IncSearch guifg=#2eb398 guibg=#f7f7f7
 highlight Comment guifg=#767f7d
+highlight EndOfBuffer guifg=#f7f7f7 guibg=#f7f7f7
+highlight Cursorline gui=underline guibg=#f7f7f7
+highlight TabLine guibg=#f7f7f7 cterm=none
+highlight TabLineFill guifg=#f7f7f7
+highlight TabLineSel guifg=#2eb398 cterm=bold
 
 set statusline=%f\ %h%w%m%r\ %=%(%l,%c%V\ %=\ %P%)
 
@@ -188,11 +209,11 @@ nnoremap <Leader>L :call Lambda()<CR>
 let g:ale_rust_cargo_use_check = 1
 " Save battery by only running on saving/entering files
 let g:ale_lint_on_text_changed = 'never'
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-l> :tabn<CR>
+nmap <silent> <C-h> :tabp<CR>
 
-" Filetypes
-augroup filetypedetect
-    au BufRead,BufNewFile *.hbs setfiletype html
-augroup END
 
 " Pane movement/organization
 noremap <Leader>h <C-W>h
@@ -210,5 +231,18 @@ noremap <Leader>T <C-W>T
 noremap <Leader><C-R> <C-W><C-R>
 set termkey=,
 
-set cursorcolumn
-set cursorline
+" Digraphs
+digraph C! 8713
+digraph !C 8716
+digraph E* 400
+digraph is 7522
+digraph ks 8342
+digraph ns 8345
+digraph ls 8343
+digraph ms 8344
+digraph rs 5384
+
+" Jcommenter config
+noremap <Leader>c :call JCommentWriter() <bar> call ClearWhitespace()<CR><ESC>
+
+autocmd InsertEnter,InsertLeave * set cul!
