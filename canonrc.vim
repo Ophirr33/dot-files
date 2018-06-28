@@ -1,26 +1,29 @@
-" Necessary, apparently
 set nocompatible
 filetype off
 
-" plug
 call plug#begin()
+Plug 'Chiel92/vim-autoformat'
+Plug 'GEverding/vim-hocon'
+Plug 'chriskempson/base16-vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ervandew/supertab'
+Plug 'flazz/vim-colorschemes'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'ervandew/supertab'
-Plug 'moll/vim-bbye'
 Plug 'tpope/vim-commentary'
-Plug 'alessandroyorba/alduin'
-Plug 'vim-syntastic/syntastic'
-Plug 'Chiel92/vim-autoformat'
-Plug 'tpope/vim-surround'
-Plug 'flazz/vim-colorschemes'
+Plug 'w0rp/ale'
+Plug 'jremmen/vim-ripgrep'
 call plug#end()
 
 filetype plugin indent on
+runtime ftplugin/man.vim
+
+" Spell checking
+set spelllang=en
 
 " Backup files are annoying
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
 
 " history
@@ -43,34 +46,6 @@ set encoding=utf8
 let mapleader = ","
 set tm=2000
 noremap ,, ,
-noremap <Leader>j <C-W>j
-noremap <Leader>k <C-W>k
-noremap <Leader>l <C-W>l
-noremap <Leader>h <C-W>h
-
-" Tabs and tab movement
-noremap <Leader>th :tabp<CR>
-noremap <Leader>tl :tabn<CR>
-noremap <Leader>tt :tab split<CR>
-
-" Easier copy and paste
-" Needs clipboard to be installed
-if has('clipboard')
-  vnoremap <Leader>y "+y
-  nnoremap <Leader>y "+y
-  vnoremap <Leader>d "+d
-  vnoremap <Leader>d "+d
-  nnoremap <Leader>p "+p
-  nnoremap <Leader>p "+p
-else
-  vnoremap <Leader>y :echo("Vim not compiled with clipboard support")<CR>
-  nnoremap <Leader>y :echo("Vim not compiled with clipboard support")<CR>
-  vnoremap <Leader>d :echo("Vim not compiled with clipboard support")<CR>
-  vnoremap <Leader>d :echo("Vim not compiled with clipboard support")<CR>
-  nnoremap <Leader>p :echo("Vim not compiled with clipboard support")<CR>
-  nnoremap <Leader>p :echo("Vim not compiled with clipboard support")<CR>
-endif
-
 set pastetoggle=<F11>
 
 " treat wrapped lines as different lines
@@ -85,10 +60,16 @@ set so=7
 
 " Always show current position
 set ruler
-set number
+
+" Playing around with having these off
+" set number
+" set cursorcolumn
+" set cursorline
+
 
 " Remove bell
 set visualbell
+set t_vb=
 
 " Better searching
 set incsearch
@@ -108,9 +89,12 @@ set smarttab
 " show whitespace
 set list
 
+" nowrap
+set nowrap
+
 " Show matching bracket
 set showmatch
-set mat=2
+set matchtime=2
 set shiftwidth=2
 set tabstop=2
 
@@ -136,9 +120,6 @@ augroup END
 nnoremap <leader>bp :bp<cr>
 nnoremap <leader>bn :bn<cr>
 
-" delete buffer without closing pane
-noremap <leader>bd :Bd<cr>
-
 " Close nerdtree after a file is selected
 let NERDTreeQuitOnOpen = 1
 
@@ -154,20 +135,24 @@ function! ToggleFindNerd()
   endif
 endfunction
 
+function! Json()
+  :%!jq --sort-keys .
+endfunction
+
+" CtrlP using ripgrep
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
+
 " If nerd tree is closed, find current file, if open, close it
 nmap <silent> <leader>f <ESC>:call ToggleFindNerd()<CR>
 nmap <silent> <leader>F <ESC>:NERDTreeToggle<CR>
 
 " base16, uncomment when installed
-colorscheme alduin
+colorscheme badwolf
 
-highlight VertSplit guibg=grey guifg=#1c1c1c
-highlight LineNr guibg=#1c1c1c
-highlight VertSplit ctermbg=none ctermfg=grey
-highlight LineNr ctermfg=grey ctermbg=none
-highlight StatusLineNC ctermfg=grey ctermbg=none
-highlight StatusLine ctermfg=yellow ctermbg=none
-set laststatus=1
 set statusline=%f\ %h%w%m%r\ %=%(%l,%c%V\ %=\ %P%)
 
 function ClearWhitespace()
@@ -178,22 +163,42 @@ function Lambda()
   %s/lambda/λ/ge
 endfunction
 
-nnoremap <Leader>w :call ClearWhitespace()<CR>
+nnoremap <Leader>W :call ClearWhitespace()<CR>
 nnoremap <Leader>L :call Lambda()<CR>
 
-" Syntastic specific checking
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" Ale syntax checking
+let g:ale_java_checkstyle_options = '-c ~/.checkstyle.xml'
+let g:ale_rust_cargo_use_check = 1
+" Save battery by only running on saving/entering files
+let g:ale_lint_on_text_changed = 'never'
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-l> :tabn<CR>
+nmap <silent> <C-h> :tabp<CR>
 
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
-let g:syntastic_javascript_checkers = ["jshint"]
-let g:syntastic_rust_rustc_exe      = 'cargo check'
-let g:syntastic_rust_rustc_fname    = ''
-let g:syntastic_rust_rustc_args     = '--'
-let g:syntastic_rust_checkers       = ['rustc']
+" Pane movement/organization
+noremap <Leader>h <C-W>h
+noremap <Leader>j <C-W>j
+noremap <Leader>k <C-W>k
+noremap <Leader>l <C-W>l
 
-" Python
-" au BufNewFile,BufRead *.py  set tabstop=4  set softtabstop=4  set shiftwidth=4  set textwidth=79  set expandtab  set autoindent  set fileformat=unix
+noremap <Leader>H <C-W>H
+noremap <Leader>J <C-W>J
+noremap <Leader>K <C-W>K
+noremap <Leader>L <C-W>L
+
+" Resize panes
+noremap <Leader>a :vertical resize -10<CR>
+noremap <Leader>d :vertical resize +10<CR>
+noremap <Leader>s :resize -10<CR>
+noremap <Leader>w :resize +10<CR>
+
+" Page left and right
+nnoremap <C-L> 40zl
+nnoremap <C-H> 40zh
+
+" Scalafmt
+nnoremap <leader>o :Autoformat<CR>
+let g:formatdef_scalafmt = "'scalafmt --stdin'"
+let g:formatters_scala = ['scalafmt']
