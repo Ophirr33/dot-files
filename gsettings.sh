@@ -44,7 +44,7 @@ gsettings set "${mutter_schema}" "toggle-tiled-left" "['<Super>Left']"
 
 gsettings set "${desktop_schema}" "toggle-maximized" "['<Super>Up']"
 
-gsettings set "${desktop_schema}" "move-to-workspace-1" "['<Shift><Super>exclaim']"
+gsettings set "${desktop_schema}" "move-to-workspace-1" "['<Shift><Super>exclam']"
 gsettings set "${desktop_schema}" "move-to-workspace-2" "['<Shift><Super>at']"
 gsettings set "${desktop_schema}" "move-to-workspace-3" "['<Shift><Super>numbersign']"
 gsettings set "${desktop_schema}" "move-to-workspace-4" "['<Shift><Super>dollar']"
