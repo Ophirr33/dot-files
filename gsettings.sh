@@ -59,3 +59,4 @@ gsettings set "${desktop_schema}" "move-to-workspace-10" "['<Shift><Super>parenr
 
 gsettings set "org.gnome.desktop.default-applications.terminal" exec tilix
 
+gsettings set "org.gnome.shell.extensions.dash-to-dock" hot-keys false
