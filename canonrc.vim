@@ -8,7 +8,6 @@ Plug 'flazz/vim-colorschemes'
 Plug 'jremmen/vim-ripgrep'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
-Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
@@ -45,7 +44,6 @@ set encoding=utf8
 let mapleader = ","
 set tm=2000
 noremap ,, ,
-set pastetoggle=<F11>
 
 " treat wrapped lines as different lines
 nnoremap j gj
@@ -85,6 +83,11 @@ set smarttab
 " show whitespace
 set list
 
+" Show whitespace
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+endif
+
 " nowrap
 set nowrap
 
@@ -93,11 +96,6 @@ set showmatch
 set matchtime=2
 set shiftwidth=2
 set tabstop=2
-
-" Show whitespace
-if &listchars ==# 'eol:$'
-  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-endif
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -146,8 +144,11 @@ endif
 nmap <silent> <leader>f <ESC>:call ToggleFindNerd()<CR>
 nmap <silent> <leader>F <ESC>:NERDTreeToggle<CR>
 
-colorscheme material
-highlight VertSplit ctermbg=none
+" set termguicolors
+set background=light
+colorscheme dim
+" set background=light
+" highlight VertSplit guifg=#252a33 guibg=#d7dbe2
 
 set statusline=%f\ %h%w%m%r\ %=%(%l,%c%V\ %=\ %P%)
 
@@ -191,10 +192,11 @@ nnoremap <C-H> 40zh
 
 " Ale syntax checking
 " java
-let g:ale_java_checkstyle_options = '-c ~/.checkstyle.xml'
+" let g:ale_java_checkstyle_options = '-c ~/.checkstyle.xml'
 " rust
 let g:ale_rust_cargo_use_check = 1
 " Save battery by only running on saving/entering files
 let g:ale_lint_on_text_changed = 'never'
 " Put fixers in ftplugin, i.e, let b:ale_fixers = ['scalafmt']
 nnoremap <leader>o :ALEFix<CR>
+
